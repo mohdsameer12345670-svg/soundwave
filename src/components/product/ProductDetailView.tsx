@@ -83,18 +83,28 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({
     <div className="bg-sonic-950 min-h-screen py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-xs text-sonic-400 mb-8 flex-wrap">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <ChevronRight size={12} />
-          <Link href="/shop" className="hover:text-white transition-colors">Shop</Link>
-          <ChevronRight size={12} />
+        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-sonic-400 mb-8 flex-wrap">
+          <Link
+            href="/"
+            className="hover:text-brand-orange transition-colors font-medium py-1 px-1 -mx-1"
+          >
+            Home
+          </Link>
+          <ChevronRight size={12} className="text-sonic-600" />
+          <Link
+            href="/shop"
+            className="hover:text-brand-orange transition-colors font-medium py-1 px-1 -mx-1"
+          >
+            Shop
+          </Link>
+          <ChevronRight size={12} className="text-sonic-600" />
           <Link
             href={`/shop?category=${product.category?.slug}`}
-            className="hover:text-white transition-colors capitalize"
+            className="hover:text-brand-orange transition-colors capitalize py-1 px-1 -mx-1"
           >
             {product.category?.name || 'Acoustic'}
           </Link>
-          <ChevronRight size={12} />
+          <ChevronRight size={12} className="text-sonic-600" />
           <span className="text-white font-medium truncate max-w-xs">{product.name}</span>
         </nav>
 
@@ -153,6 +163,74 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({
                 ))}
               </div>
             )}
+
+            {/* Color Palette Switcher directly under the 2 images */}
+            {variants.length > 0 && (
+              <div className="bg-sonic-900/80 border border-sonic-800/90 rounded-2xl p-4 mt-3 shadow-lg">
+                <div className="flex items-center justify-between text-xs mb-3">
+                  <span className="text-sonic-400 font-medium">Available Colors:</span>
+                  <span className="font-bold text-white flex items-center gap-2">
+                    <span
+                      className="w-3 h-3 rounded-full border border-sonic-700 shadow-sm"
+                      style={{ backgroundColor: selectedVariant.color_hex }}
+                    />
+                    <span className="text-brand-orange">{selectedVariant.color_name}</span>
+                    {selectedVariant.stock_quantity <= 0 ? (
+                      <span className="text-red-400 text-[10px] font-normal">(Out of stock)</span>
+                    ) : selectedVariant.stock_quantity <= 10 ? (
+                      <span className="text-amber-400 text-[10px] font-normal">
+                        ({selectedVariant.stock_quantity} left)
+                      </span>
+                    ) : null}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2.5 flex-wrap">
+                  {variants.map(variant => {
+                    const isSelected = selectedVariant.id === variant.id;
+                    const isOutOfStock = variant.stock_quantity <= 0;
+                    return (
+                      <button
+                        key={variant.id}
+                        type="button"
+                        onClick={() => {
+                          setSelectedVariant(variant);
+                          if (variant.image_url) {
+                            setSelectedImageIndex(0);
+                          }
+                          setQuantity(1);
+                        }}
+                        className={`group/color relative flex items-center gap-2.5 px-3.5 py-2 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+                          isSelected
+                            ? 'bg-sonic-850 border-brand-orange text-white shadow-md shadow-brand-orange/20 scale-105'
+                            : 'bg-sonic-950/70 border-sonic-800 text-sonic-300 hover:text-white hover:border-sonic-700 hover:bg-sonic-900'
+                        } ${isOutOfStock ? 'opacity-40 cursor-not-allowed' : ''}`}
+                      >
+                        <span
+                          className={`w-4 h-4 rounded-full border border-sonic-700 shrink-0 shadow-inner flex items-center justify-center transition-transform ${
+                            isSelected ? 'ring-2 ring-brand-orange ring-offset-1 ring-offset-sonic-900' : ''
+                          }`}
+                          style={{ backgroundColor: variant.color_hex }}
+                        >
+                          {isSelected && (
+                            <Check
+                              size={10}
+                              className={
+                                variant.color_hex.toLowerCase() === '#ffffff' ||
+                                variant.color_hex.toLowerCase() === '#f3f4f6' ||
+                                variant.color_hex.toLowerCase() === '#fafafa'
+                                  ? 'text-black'
+                                  : 'text-white'
+                              }
+                            />
+                          )}
+                        </span>
+                        <span>{variant.color_name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right Column: Details & Purchase Options */}
@@ -201,9 +279,9 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({
               </p>
             </div>
 
-            {/* Color Swatch Selector */}
+            {/* Color Swatch Selector (Desktop sync) */}
             {variants.length > 0 && (
-              <div className="pt-4 border-t border-sonic-850">
+              <div className="pt-4 border-t border-sonic-850 hidden lg:block">
                 <ColorSelector
                   variants={variants}
                   selectedVariant={selectedVariant}

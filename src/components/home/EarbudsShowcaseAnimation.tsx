@@ -164,28 +164,28 @@ export const EarbudsShowcaseAnimation: React.FC = () => {
       id: 1,
       title: '11mm Bio-Carbon Driver',
       desc: 'Deep 10Hz sub-bass and glistening 40kHz acoustic clarity',
-      pos: 'top-12 left-4 sm:left-16',
+      pos: 'top-10 left-6 lg:left-14',
       tag: 'Acoustic Core',
     },
     {
       id: 2,
       title: 'AI Quad-Mic Array',
       desc: 'Wind-resistant beamforming suppresses 40km/h wind noise',
-      pos: 'top-12 right-4 sm:right-16',
+      pos: 'top-10 right-6 lg:right-14',
       tag: 'Voice Clarity',
     },
     {
       id: 3,
       title: 'Capacitive Precision Touch',
       desc: 'Tap for volume, gesture-slide for tracks, long press for ANC',
-      pos: 'bottom-20 left-4 sm:left-16',
+      pos: 'bottom-16 left-6 lg:left-14',
       tag: 'Smart Control',
     },
     {
       id: 4,
       title: 'IPX7 Waterproof & Qi Charge',
       desc: 'Submersible sweatproof design with 36hr wireless case backup',
-      pos: 'bottom-20 right-4 sm:right-16',
+      pos: 'bottom-16 right-6 lg:right-14',
       tag: 'Endurance',
     },
   ];
@@ -427,11 +427,11 @@ export const EarbudsShowcaseAnimation: React.FC = () => {
               <div className="w-56 h-4 bg-brand-orange/20 blur-xl rounded-full mt-1" />
             </div>
 
-            {/* ── 4 Interactive Acoustic Hotspots ── */}
+            {/* ── Desktop Interactive Acoustic Hotspots (Floating around central dock) ── */}
             {hotspots.map((spot) => (
               <div
                 key={spot.id}
-                className={`absolute z-30 ${spot.pos}`}
+                className={`hidden md:block absolute z-30 ${spot.pos}`}
                 onMouseEnter={() => setActiveHotspot(spot.id)}
                 onMouseLeave={() => setActiveHotspot(null)}
               >
@@ -453,7 +453,9 @@ export const EarbudsShowcaseAnimation: React.FC = () => {
                         initial={{ opacity: 0, y: 8, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                        className="absolute left-0 mt-2 w-64 p-3.5 rounded-2xl bg-sonic-900/95 border border-brand-orange/40 text-left shadow-2xl backdrop-blur-xl z-50 pointer-events-none"
+                        className={`absolute ${
+                          spot.pos.includes('right') ? 'right-0' : 'left-0'
+                        } mt-2 w-64 p-3.5 rounded-2xl bg-sonic-900/95 border border-brand-orange/40 text-left shadow-2xl backdrop-blur-xl z-50 pointer-events-none`}
                       >
                         <span className="text-[10px] font-extrabold text-brand-orange uppercase tracking-wider block mb-1">
                           {spot.tag}
@@ -467,6 +469,34 @@ export const EarbudsShowcaseAnimation: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* ── Mobile Acoustic Feature Grid (Zero Overlap on phone screens) ── */}
+          <div className="md:hidden mt-6 pt-6 border-t border-sonic-850/60">
+            <div className="text-[11px] font-extrabold text-brand-orange uppercase tracking-wider text-center mb-3">
+              Acoustic Architecture
+            </div>
+            <div className="grid grid-cols-2 gap-2.5">
+              {hotspots.map((spot) => (
+                <div
+                  key={spot.id}
+                  className="p-3 rounded-2xl bg-sonic-900/80 border border-sonic-800 text-left"
+                >
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
+                    <span className="text-[9px] font-extrabold text-brand-orange uppercase tracking-wider">
+                      {spot.tag}
+                    </span>
+                  </div>
+                  <div className="text-xs font-bold text-white leading-tight">
+                    {spot.title}
+                  </div>
+                  <p className="text-[10px] text-sonic-400 mt-1 line-clamp-2 leading-relaxed">
+                    {spot.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* ── BOTTOM LIVE SPECS & ADD TO CART BAR ── */}

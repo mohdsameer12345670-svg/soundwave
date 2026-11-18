@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
+import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Product, Category } from '@/types';
 import { DataService, ProductFilters } from '@/lib/data/store';
@@ -140,19 +141,33 @@ function ShopContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Breadcrumb & Title */}
         <div className="mb-8">
-          <div className="flex items-center gap-2 text-xs text-sonic-400 mb-2">
-            <span>Home</span>
-            <span>/</span>
-            <span className="text-white">Shop</span>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-sonic-400 mb-2 flex-wrap">
+            <Link
+              href="/"
+              className="hover:text-brand-orange transition-colors cursor-pointer py-1 font-medium"
+            >
+              Home
+            </Link>
+            <span className="text-sonic-600">/</span>
+            <Link
+              href="/shop"
+              className={`${
+                selectedCategory === 'all'
+                  ? 'text-white font-semibold'
+                  : 'hover:text-brand-orange transition-colors'
+              } cursor-pointer py-1`}
+            >
+              Shop
+            </Link>
             {selectedCategory !== 'all' && (
               <>
-                <span>/</span>
-                <span className="text-brand-orange capitalize">
+                <span className="text-sonic-600">/</span>
+                <span className="text-brand-orange font-semibold capitalize py-1">
                   {categories.find(c => c.slug === selectedCategory)?.name || selectedCategory}
                 </span>
               </>
             )}
-          </div>
+          </nav>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Acoustic Collection
           </h1>
