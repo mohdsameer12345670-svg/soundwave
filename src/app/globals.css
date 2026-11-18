@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-orange: #ff5500;
+  --color-brand-orange-hover: #ff6b1a;
+  --color-brand-orange-glow: rgba(255, 85, 0, 0.25);
+  
+  --color-sonic-950: #08080a;
+  --color-sonic-900: #0e0e12;
+  --color-sonic-850: #141419;
+  --color-sonic-800: #1b1b22;
+  --color-sonic-750: #222230;
+  --color-sonic-700: #292934;
+  --color-sonic-600: #3f3f4e;
+  --color-sonic-400: #88889b;
+  --color-sonic-300: #aaaabc;
+  --color-sonic-200: #d4d4df;
+  --color-sonic-100: #f4f4f7;
+  
+  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
+:root {
+  --background: #08080a;
+  --foreground: #f4f4f7;
+  --card-bg: #0e0e12;
+  --card-border: #1f1f28;
+  --accent: #ff5500;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: #ff5500;
+  color: #ffffff;
+}
+
+/* Premium scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #08080a;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff5500, #cc4400);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff6b1a;
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(14, 14, 18, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-panel-hover:hover {
+  background: rgba(20, 20, 25, 0.9);
+  border-color: rgba(255, 85, 0, 0.4);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 85, 0, 0.1);
+}
+
+/* Glow effects */
+.orange-glow {
+  box-shadow: 0 0 30px rgba(255, 85, 0, 0.35), 0 0 60px rgba(255, 85, 0, 0.15);
+}
+
+.orange-glow-sm {
+  box-shadow: 0 0 15px rgba(255, 85, 0, 0.25);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-orange {
+  background: linear-gradient(135deg, #ff9966 0%, #ff5500 50%, #cc3300 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Premium card */
+.premium-card {
+  background: linear-gradient(145deg, rgba(20,20,26,0.9) 0%, rgba(14,14,18,0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 24px -4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.premium-card:hover {
+  border-color: rgba(255, 85, 0, 0.3);
+  box-shadow: 0 20px 48px -8px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,85,0,0.15), inset 0 1px 0 rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+}
+
+/* Noise texture overlay for depth */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.04;
+  border-radius: inherit;
+}
+
+/* Animated gradient border */
+@keyframes border-glow {
+  0%, 100% { border-color: rgba(255, 85, 0, 0.2); }
+  50% { border-color: rgba(255, 85, 0, 0.5); }
+}
+
+.animate-border-glow {
+  animation: border-glow 3s ease-in-out infinite;
+}
+
+/* Pulse ring animation */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 85, 0, 0.5); }
+  70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(255, 85, 0, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 85, 0, 0); }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 2.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,85,0,0.08) 50%, transparent 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Scan line animation for tech feel */
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Sound wave animation */
+@keyframes soundwave {
+  0%, 100% { height: 4px; }
+  50% { height: 20px; }
+}
+.soundwave-bar {
+  display: inline-block;
+  width: 3px;
+  background: #ff5500;
+  border-radius: 2px;
+  animation: soundwave 1.2s ease-in-out infinite;
+}
+.soundwave-bar:nth-child(2) { animation-delay: 0.15s; }
+.soundwave-bar:nth-child(3) { animation-delay: 0.3s; }
+.soundwave-bar:nth-child(4) { animation-delay: 0.45s; }
+.soundwave-bar:nth-child(5) { animation-delay: 0.6s; }
+
+/* Glowing text */
+.text-glow-orange {
+  text-shadow: 0 0 20px rgba(255, 85, 0, 0.6), 0 0 40px rgba(255, 85, 0, 0.3);
+}
+
+/* Backdrop blur support */
+.backdrop-ultra {
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+
+/* Hide all scrollbars across the website */
+*,
+*::before,
+*::after {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+*::-webkit-scrollbar,
+*::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-track {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* Hide Next.js dev server indicators and issues overlay badge */
+nextjs-portal,
+[data-next-dev-overlay],
+[data-nextjs-dev-tools-button],
+[data-nextjs-toast],
+div[data-nextjs-dialog-overlay] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

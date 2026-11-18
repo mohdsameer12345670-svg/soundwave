@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Dark premium background -->
+  <circle cx="50" cy="50" r="50" fill="#0a0a0f"/>
+
+  <!-- Subtle orange glow ring -->
+  <circle cx="50" cy="50" r="47" fill="none" stroke="#f97316" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Premium headphone arc (top) -->
+  <path d="M24 50 Q24 24 50 24 Q76 24 76 50"
+        stroke="#f97316" stroke-width="5.5" fill="none"
+        stroke-linecap="round"/>
+
+  <!-- Left ear cup -->
+  <rect x="16" y="46" width="13" height="20" rx="6" fill="#f97316"/>
+
+  <!-- Right ear cup -->
+  <rect x="71" y="46" width="13" height="20" rx="6" fill="#f97316"/>
+
+  <!-- Inner ear cup highlight -->
+  <rect x="19" y="49" width="7" height="14" rx="3.5" fill="#1a0a00" opacity="0.5"/>
+  <rect x="74" y="49" width="7" height="14" rx="3.5" fill="#1a0a00" opacity="0.5"/>
+
+  <!-- Sound wave dots at center bottom for premium detail -->
+  <circle cx="44" cy="78" r="2.5" fill="#f97316" opacity="0.7"/>
+  <circle cx="50" cy="80" r="2.5" fill="#f97316" opacity="0.9"/>
+  <circle cx="56" cy="78" r="2.5" fill="#f97316" opacity="0.7"/>
+</svg>
